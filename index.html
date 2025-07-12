@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dear Crush</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 10;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      background-color: white;
+      transition: background-color 2s ease;
+    }
+
+    body.fade-green {
+      background-color: #a7f3d0; /* soft green */
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .heart {
+      cursor: pointer;
+      animation: beat 1s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    .heart img {
+      width: 80px;
+      height: auto;
+    }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.3);
+      }
+    }
+
+    .letter {
+      background: white;
+      padding: 10px;
+      border-radius: 9px;
+      width: 90vw;
+      max-width: 640px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: justify;
+      margin-top: 20px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(-20px);
+      transition: all 2s ease;
+    }
+
+    .letter.show {
+      max-height: 1000px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .letter h2 {
+      margin-top: 0;
+      text-align: left;
+    }
+
+    .music-controls {
+      margin-top: 15px;
+      padding: 8px 15px;
+      background-color: #fce7f3;
+      color: #be185d;
+      font-weight: bold;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 2.5s ease;
+    }
+
+    .music-controls.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .music-controls i {
+      font-style: normal;
+    }
+
+    .music-controls button {
+      background-color: #be185d;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .music-controls button:hover {
+      background-color: #9d174d;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="heart" onclick="toggleLetter()">
+      <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="Heart" />
+    </div>
+
+    <div class="music-controls" id="song1-controls">
+      <span>Now Playing: <i>About You</i></span>
+      <button id="playPauseBtn">⏸</button>
+    </div>
+
+
+    <div class="letter" id="letter">
+  <p>
+    Dear Nicole,<br><br>
+
+    I hope you had a great day today.<br><br>
+
+    I just want to say that I really hope whatever we have right now lasts. I've noticed<br>
+    that our conversations have been getting a bit quiet lately, and I guess I'm just a little<br>
+    scared of losing the connection we have.<br><br>
+
+    I know I have a crush on you, and I understand that you're still unsure about how you feel.<br>
+    That's okay I respect that, and I'm not here to pressure you.<br><br>
+
+    but please let me know If you're starting to lose interest in me or feel like our<br>
+    conversations don't mean as much anymore, I understand and it's okay.<br><br>
+
+    I don't want us to waste each other's time if we're not on the same page.<br>
+    I don't want to be just a phase in your life. I want to be someone who truly matters<br>
+    because I'm not a phase. I'm always.<br><br>
+
+    More than anything, In the future, I hope things stay good between us. I don't want<br>
+    there to be any awkwardness. I want us to still be comfortable, happy, and able to<br>
+    talk freely no matter what happens.<br><br>
+
+    If I'm not the one meant for you, I'll accept that. I just hope we'll be okay in the end,<br>
+    and we can still be at peace with each other.<br><br>
+
+    However, if you need someone to talk to im always right here,
+    im not gonna pull away from you<br><br>
+
+    Take care always,
+  </p>
+  <p style="text-align: right; margin-top: 30px;">
+    Your Admirer,<br>
+    Austine
+  </p>
+</div>
+
+
+    <audio id="song1" src="The 1975 - About You (Official).mp3"></audio>
+  </div>
+
+<script>
+  let isOpen = false;
+  let isPlaying = true;
+
+  const song = document.getElementById('song1');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+
+  function toggleLetter() {
+    const letter = document.getElementById('letter');
+    const controls = document.getElementById('song1-controls');
+    const body = document.body;
+
+    letter.classList.toggle('show');
+    controls.classList.toggle('show');
+    body.classList.toggle('fade-green');
+
+    if (!isOpen) {
+      song.play();
+      isPlaying = true;
+      playPauseBtn.innerText = '⏸';
+      isOpen = true;
+    } else {
+      song.pause();
+      song.currentTime = 0;
+      playPauseBtn.innerText = '▶️';
+      isPlaying = false;
+      isOpen = false;
+    }
+  }
+
+  playPauseBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      song.pause();
+      playPauseBtn.innerText = '▶️';
+    } else {
+      song.play();
+      playPauseBtn.innerText = '⏸';
+    }
+    isPlaying = !isPlaying;
+  });
+</script>
+
+
+</body>
+</html>
